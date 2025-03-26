@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { ZodError, ZodObject } from "zod";
 import { ICallableMiddleware } from "./middleware";
 import { EHttpCode } from "@http/shared/codes";
-import { IResponse, IResponseError } from "@shared/interfaces";
+import { IResponse, IResponseError } from "@shared/types";
 
 const validatorMiddleware: ICallableMiddleware<ZodObject<any>> = (schema): RequestHandler => (req, res, next) => {
   try {

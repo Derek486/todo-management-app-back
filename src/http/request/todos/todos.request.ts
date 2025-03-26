@@ -1,4 +1,4 @@
-import { IQueryPaginate } from "@shared/interfaces";
+import { IQueryPaginate } from "@shared/types";
 
 export interface ITodosQuery extends qs.ParsedQs, IQueryPaginate {
   isComplete?: string,
