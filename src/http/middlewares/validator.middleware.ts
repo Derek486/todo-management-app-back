@@ -1,12 +1,13 @@
-import { IResponse, IResponseError } from "@shared/response";
 import { RequestHandler } from "express";
 import { ZodError, ZodObject } from "zod";
 import { ICallableMiddleware } from "./middleware";
 import { EHttpCode } from "@http/shared/codes";
+import { IResponse, IResponseError } from "@shared/interfaces";
 
 const validatorMiddleware: ICallableMiddleware<ZodObject<any>> = (schema): RequestHandler => (req, res, next) => {
   try {
-    schema.parse(req.body);
+    const value = schema.parse(req.body);
+    res.locals.parsedData = value
     return next();
   } catch (err) {
     if (err instanceof ZodError) {
@@ -32,10 +33,6 @@ const validatorMiddleware: ICallableMiddleware<ZodObject<any>> = (schema): Reque
         errors,
       } as IResponse);
     }
-    return res.status(EHttpCode.INTERNAL_SERVER_ERROR).json({
-      status: EHttpCode.BAD_REQUEST,
-      detail: 'Internal server error',
-    });
   }
 };
 

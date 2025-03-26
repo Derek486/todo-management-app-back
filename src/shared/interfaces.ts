@@ -1,3 +1,8 @@
+export interface IQueryPaginate {
+  page: string,
+  pageSize: string,
+}
+
 export interface IResponseError {
   property: string,
   messages: string[]

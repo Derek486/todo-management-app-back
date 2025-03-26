@@ -1,6 +1,8 @@
-import express, { Response } from 'express'
+import express from 'express'
 import { APP_CORS, APP_HOST, APP_PORT } from './config'
 import helmet from 'helmet'
+
+import todoRouter from './routes/todo.router'
 
 const app = express()
 
@@ -16,14 +18,10 @@ app.disable('x-powered-by')
 /**
  * Routers here
  */
+app.use('/api', todoRouter)
 
-app.use((_, res, __) => {
+app.use('**', (_req, res, _next) => {
   res.status(404).json({ message: 'Resource not found' });
-});
-
-app.use((err: any, _: any, res: Response) => {
-  console.error(err.stack)
-  res.status(500).json({ message: 'An unexpected error has occurred', error: err.message })
 });
 
 export default app

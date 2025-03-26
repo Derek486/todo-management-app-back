@@ -1,5 +1,5 @@
-import Tarea from "./models/tarea.model"
+import Todo from "./models/todo.model"
 
 export {
-  Tarea
+  Todo
 }
