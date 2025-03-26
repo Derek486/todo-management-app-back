@@ -34,8 +34,8 @@ export class TodoImplementationRepository extends TodoRepository {
   async createTodo(param: ITodoCreateDTO): Promise<TResponseRepo<ITodoDTO>> {
     try {
       const todo = await Todo.create({
+        title: param.title,
         description: param.description,
-        title: param.title
       })
 
       const data = mapper.mapFrom(todo)
