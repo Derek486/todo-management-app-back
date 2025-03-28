@@ -2,6 +2,7 @@ import { TodoImplementationRepository } from "@infrastructure/implementation/tod
 import { TController } from "../../shared/types";
 import { ITodoPromptGetAll, ITodoPromptId, ITodoPromptPartial, ITodoPromptPost, ITodoPromptPut } from "./todo.interfaces";
 import { ITodoCreateDTO, ITodoUpdateDTO } from "@infrastructure/dto/todo-modify.dto";
+import { IResponse } from "@shared/types";
 
 const repo = new TodoImplementationRepository()
 
@@ -13,8 +14,9 @@ export const getTodoById: TController<ITodoPromptId> = async (req, res) => {
   }
 
   return res.json({
-    data: response?.data
-  });
+    detail: 'Todos obtained',
+    data: response?.data || []
+  } as IResponse);
 };
 
 export const getTodos: TController<ITodoPromptGetAll> = async (_req, res) => {
@@ -24,7 +26,10 @@ export const getTodos: TController<ITodoPromptGetAll> = async (_req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ data: response?.data });
+  return res.json({
+    detail: 'Todo obtained',
+    data: response?.data
+  } as IResponse);
 };
 
 export const postTodo: TController<ITodoPromptPost> = async (_req, res) => {
@@ -39,7 +44,10 @@ export const postTodo: TController<ITodoPromptPost> = async (_req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ data: response?.data });
+  return res.json({
+    detail: 'Todo created',
+    data: response?.data
+  } as IResponse);
 };
 
 export const putTodo: TController<ITodoPromptPut> = async (req, res) => {
@@ -55,7 +63,10 @@ export const putTodo: TController<ITodoPromptPut> = async (req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ data: response?.data });
+  return res.json({
+    detail: 'Todo updated',
+    data: response?.data
+  } as IResponse);
 };
 
 export const patchTodo: TController<ITodoPromptPartial> = async (req, res) => {
@@ -71,7 +82,10 @@ export const patchTodo: TController<ITodoPromptPartial> = async (req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ data: response?.data });
+  return res.json({ 
+    detail: 'Todo partial updated',
+    data: response?.data 
+  } as IResponse);
 };
 
 export const deleteTodo: TController<ITodoPromptId> = async (req, res) => {
@@ -81,5 +95,5 @@ export const deleteTodo: TController<ITodoPromptId> = async (req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ detail: "Todo deleted" });
+  return res.json({ detail: "Todo deleted" } as IResponse);
 };

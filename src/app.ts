@@ -1,6 +1,7 @@
 import express from 'express'
 import { APP_CORS, APP_HOST, APP_PORT } from './config'
 import helmet from 'helmet'
+import cors from 'cors'
 
 import todoRouter from './routes/todo.router'
 
@@ -12,6 +13,12 @@ app.set('CORS_ORIGIN', APP_CORS)
 
 app.use(express.json())
 app.use(helmet())
+
+if (app.get('CORS_ORIGIN')) {
+  app.use(cors({
+    origin: app.get('CORS_ORIGIN')
+  }))
+}
 
 app.disable('x-powered-by')
 
