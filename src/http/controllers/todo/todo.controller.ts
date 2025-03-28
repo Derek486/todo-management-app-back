@@ -95,5 +95,5 @@ export const deleteTodo: TController<ITodoPromptId> = async (req, res) => {
     return res.status(400).json(err)
   }
 
-  return res.json({ detail: "Todo deleted" } as IResponse);
+  return res.json({ detail: "Todo deleted", status: 204 } as IResponse);
 };

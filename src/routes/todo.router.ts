@@ -1,4 +1,4 @@
-import { getTodos, getTodoById, patchTodo, postTodo, putTodo } from "@http/controllers/todo/todo.controller";
+import { getTodos, getTodoById, patchTodo, postTodo, putTodo, deleteTodo } from "@http/controllers/todo/todo.controller";
 import validatorMiddleware from "@http/middlewares/validator.middleware";
 import { todoCreateSchema, todoPartialSchema, todoUpdateSchema } from "@http/request/todos/todo-modify.request";
 import { Router } from "express";
@@ -10,5 +10,6 @@ router.get('/todos', getTodos)
 router.post('/todos', validatorMiddleware(todoCreateSchema), postTodo)
 router.put('/todos/:id', validatorMiddleware(todoUpdateSchema), putTodo)
 router.patch('/todos/:id', validatorMiddleware(todoPartialSchema), patchTodo)
+router.delete('/todos/:id', deleteTodo)
 
 export default router
