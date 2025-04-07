@@ -9,6 +9,8 @@ export class TodoMapper extends Mapper<Todo, ITodoDTO> {
       title: param.title,
       description: param.description,
       isComplete: !!param.isComplete,
+      createdAt: param.createdAt,
+      updatedAt: param.updatedAt,
     }
   }
 }

@@ -3,4 +3,6 @@ export interface ITodoDTO {
   title: string
   description?: string
   isComplete: boolean
+  createdAt?: Date
+  updatedAt?: Date
 }

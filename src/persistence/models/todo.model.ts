@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import { CreationOptional, DataTypes, Model, Optional } from 'sequelize';
 import connection from '@persistence/connection';
 
 interface ITodoAttributes {
@@ -15,6 +15,8 @@ class Todo extends Model<ITodoAttributes, ITodoCreationAttributes> implements IT
   public title!: string;
   public isComplete?: boolean;
   public description?: string;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }
 
 Todo.init(
