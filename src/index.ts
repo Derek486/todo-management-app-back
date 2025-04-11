@@ -1,6 +1,5 @@
 import app from "./app";
 import connection from "@persistence/connection";
-import "@persistence/relations"
 
 async function main() {
   try {

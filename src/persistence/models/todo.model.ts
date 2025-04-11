@@ -2,7 +2,7 @@ import { CreationOptional, DataTypes, Model, Optional } from 'sequelize';
 import connection from '@persistence/connection';
 import User from './user.model';
 
-interface ITaskAttributes {
+interface ITodoAttributes {
   id: string;
   title: string;
   description?: string;
@@ -12,9 +12,9 @@ interface ITaskAttributes {
   deadLine?: Date;
 }
 
-interface ITaskCreationAttributes extends Optional<ITaskAttributes, 'id' | 'description' | 'deadLine'> { }
+interface ITodoCreationAttributes extends Optional<ITodoAttributes, 'id' | 'description' | 'deadLine'> { }
 
-class Task extends Model<ITaskAttributes, ITaskCreationAttributes> implements ITaskAttributes {
+class Todo extends Model<ITodoAttributes, ITodoCreationAttributes> implements ITodoAttributes {
   public id!: string;
   public title!: string;
   public description?: string;
@@ -28,7 +28,7 @@ class Task extends Model<ITaskAttributes, ITaskCreationAttributes> implements IT
   declare updatedAt: CreationOptional<Date>;
 }
 
-Task.init(
+Todo.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -68,10 +68,10 @@ Task.init(
   },
   {
     sequelize: connection,
-    modelName: 'Task',
-    tableName: 'Tasks',
+    modelName: 'Todo',
+    tableName: 'Todos',
     timestamps: true,
   }
 );
 
-export default Task;
+export default Todo;

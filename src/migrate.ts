@@ -1,4 +1,5 @@
 import connection from "@persistence/connection";
+import "@persistence/relations"
 
 async function migrate() {
   await connection.authenticate();
