@@ -10,7 +10,7 @@ const authMiddleware: IMiddleware = (req, res, next) => {
     const authString = req.headers.authorization
     if (authString) {
       const token = authString.split(' ')[1]
-      jwt.verify(token, APP_KEY, (err: any, value: any) => {
+      return jwt.verify(token, APP_KEY, (err: any, value: any) => {
         if (err) return res.status(EHttpCode.UNAUTHORIZED).json({
           status: EHttpCode.UNAUTHORIZED,
           detail: 'Unauthorized request'
@@ -18,7 +18,6 @@ const authMiddleware: IMiddleware = (req, res, next) => {
         res.locals.authUserId = value
         return next();
       })
-      return next();
     } else {
       return res.status(EHttpCode.UNAUTHORIZED).json({
         status: EHttpCode.UNAUTHORIZED,
