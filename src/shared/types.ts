@@ -33,12 +33,13 @@ export interface IResponsePaginate<T = any> extends IResponse<{
  * Response interfaces/types for infrastructure repositories
  */
 export interface IResponseRepoData<D = any> {
-  data: D,
+  data: D
   meta?: any // Metadata to pagination, message, etc.
 }
 
 export type TResponseRepoError = {
-  detail?: string,
+  detail?: string
+  status?: number
   errors?: IResponseError[]
 }
 

@@ -1,6 +1,6 @@
 import { Todo } from "@persistence/relations";
 import { Mapper } from "./mapper";
-import { ITodoDTO } from "@infrastructure/dto/todo.dto";
+import { ITodoDTO } from "@infrastructure/dto/todo/todo.dto";
 
 export class TodoMapper extends Mapper<Todo, ITodoDTO> {
   mapFrom(param: Todo): ITodoDTO {

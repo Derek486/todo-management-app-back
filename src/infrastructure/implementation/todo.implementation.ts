@@ -1,5 +1,5 @@
-import { ITodoCreateDTO, ITodoUpdateDTO } from "@infrastructure/dto/todo-modify.dto";
-import { ITodoDTO } from "@infrastructure/dto/todo.dto";
+import { ITodoCreateDTO, ITodoUpdateDTO } from "@infrastructure/dto/todo/todo-modify.dto";
+import { ITodoDTO } from "@infrastructure/dto/todo/todo.dto";
 import { TodoMapper } from "@infrastructure/mappers/todo.mapper";
 import { TodoRepository } from "@infrastructure/repository/todo.repository";
 import { getErrorsDB } from "@infrastructure/shared/lib";
