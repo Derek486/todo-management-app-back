@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 
 import todoRouter from './routes/todo.router'
+import authRouter from './routes/auth.router'
 
 const app = express()
 
@@ -25,7 +26,8 @@ app.disable('x-powered-by')
 /**
  * Routers here
  */
-app.use('/api', todoRouter)
+app.use('/api/todos', todoRouter)
+app.use('/api/auth', authRouter)
 
 app.use('**', (_req, res, _next) => {
   res.status(404).json({ message: 'Resource not found' });

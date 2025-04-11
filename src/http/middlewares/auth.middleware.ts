@@ -1,26 +1,35 @@
-import { AuthRequest } from "@http/request/auth/auth.request";
-import { EHttpCode } from "@shared/codes";
-import { IMiddleware } from "@shared/middleware";
-import { SERVER_ERROR_RESPONSE, SERVER_NOTAUTH_RESPONSE } from "@shared/response";
 import { RequestHandler } from "express";
 import { APP_KEY } from "src/config";
 import jwt from 'jsonwebtoken'
+import { IMiddleware } from "./middleware";
+import { EHttpCode } from "@http/shared/codes";
+import { IResponse } from "@shared/types";
 
-const authMiddleware: IMiddleware<AuthRequest> = (req, res, next) => {
+const authMiddleware: IMiddleware = (req, res, next) => {
   try {
     const authString = req.headers.authorization
     if (authString) {
       const token = authString.split(' ')[1]
       jwt.verify(token, APP_KEY, (err: any, value: any) => {
-        if (err) return res.status(EHttpCode.NOT_AUTH).json(SERVER_NOTAUTH_RESPONSE);
-        req.user = value.data
+        if (err) return res.status(EHttpCode.UNAUTHORIZED).json({
+          status: EHttpCode.UNAUTHORIZED,
+          detail: 'Unauthorized request'
+        } as IResponse);
+        res.locals.authUserId = value
         return next();
       })
+      return next();
     } else {
-      res.status(EHttpCode.NOT_AUTH).json(SERVER_NOTAUTH_RESPONSE);
+      return res.status(EHttpCode.UNAUTHORIZED).json({
+        status: EHttpCode.UNAUTHORIZED,
+        detail: 'Unauthorized request'
+      } as IResponse);
     }
   } catch (err) {
-    res.status(EHttpCode.SERVER_ERROR).json(SERVER_ERROR_RESPONSE);
+    return res.status(EHttpCode.INTERNAL_SERVER_ERROR).json({
+      status: EHttpCode.INTERNAL_SERVER_ERROR,
+      detail: 'Internal server error'
+    } as IResponse);
   }
 };
 
