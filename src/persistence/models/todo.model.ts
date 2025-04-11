@@ -1,25 +1,34 @@
 import { CreationOptional, DataTypes, Model, Optional } from 'sequelize';
 import connection from '@persistence/connection';
+import User from './user.model';
 
-interface ITodoAttributes {
+interface ITaskAttributes {
   id: string;
   title: string;
   description?: string;
-  isComplete?: boolean;
+  status: '0' | '1' | '2' | '3';
+  autorId: string;
+  memberId: string;
+  deadLine?: Date;
 }
 
-interface ITodoCreationAttributes extends Optional<ITodoAttributes, 'id' | 'description' | 'isComplete'> { }
+interface ITaskCreationAttributes extends Optional<ITaskAttributes, 'id' | 'description' | 'deadLine'> { }
 
-class Todo extends Model<ITodoAttributes, ITodoCreationAttributes> implements ITodoAttributes {
+class Task extends Model<ITaskAttributes, ITaskCreationAttributes> implements ITaskAttributes {
   public id!: string;
   public title!: string;
-  public isComplete?: boolean;
   public description?: string;
+  public status!: '0' | '1' | '2' | '3';
+  public autorId!: string;
+  public autor?: User;
+  public memberId!: string;
+  public member?: User;
+  public deadLine?: Date;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
 
-Todo.init(
+Task.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -34,17 +43,35 @@ Todo.init(
       type: DataTypes.STRING,
       allowNull: true
     },
-    isComplete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    status: {
+      type: DataTypes.ENUM('0', '1', '2', '3'),
+      defaultValue: '0',
+    },
+    deadLine: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    autorId: {
+      type: DataTypes.UUID,
+      references: {
+        model: User,
+        key: 'id'
+      }
+    },
+    memberId: {
+      type: DataTypes.UUID,
+      references: {
+        model: User,
+        key: 'id'
+      }
     },
   },
   {
     sequelize: connection,
-    modelName: 'Todo',
-    tableName: 'Todos',
+    modelName: 'Task',
+    tableName: 'Tasks',
     timestamps: true,
   }
 );
 
-export default Todo;
+export default Task;

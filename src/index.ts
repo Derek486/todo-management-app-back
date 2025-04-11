@@ -6,8 +6,6 @@ async function main() {
   try {
     await connection.authenticate();
 
-    await connection.sync();
-
     console.log('Database connection successful');
 
     const PORT = app.get('PORT');

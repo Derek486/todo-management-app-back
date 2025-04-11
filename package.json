@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "tsc && ts-node -r tsconfig-paths/register dist/index.js",
+    "migrate": "ts-node-dev -r tsconfig-paths/register ./src/migrate.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
