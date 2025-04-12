@@ -15,7 +15,7 @@ const authMiddleware: IMiddleware = (req, res, next) => {
           status: EHttpCode.UNAUTHORIZED,
           detail: 'Unauthorized request'
         } as IResponse);
-        res.locals.authUserId = value
+        res.locals.authUserId = value.data
         return next();
       })
     } else {

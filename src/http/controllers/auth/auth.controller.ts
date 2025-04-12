@@ -1,5 +1,5 @@
 import { TController } from "@http/shared/types";
-import { AuthImplementationRepository } from "@infrastructure/implementation/auth.implementation";
+import { AuthImplementationRepository } from "@infrastructure/implementation/auth/auth.implementation";
 import { IAuthPromptlogin, IAuthPromptRegister } from "./auth.interfaces";
 import { ILoginDTO } from "@infrastructure/dto/auth/login.dto";
 import { IResponse } from "@shared/types";

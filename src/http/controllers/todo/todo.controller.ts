@@ -1,9 +1,9 @@
-import { TodoImplementationRepository } from "@infrastructure/implementation/todo.implementation";
-import { TController } from "../../shared/types";
+import { TodoImplementationRepository } from "@infrastructure/implementation/todo/todo.implementation";
 import { ITodoPromptGetAll, ITodoPromptId, ITodoPromptPartial, ITodoPromptPost, ITodoPromptPut } from "./todo.interfaces";
 import { ITodoCreateDTO, ITodoUpdateDTO } from "@infrastructure/dto/todo/todo-modify.dto";
 import { IResponse } from "@shared/types";
 import { EHttpCode } from "@http/shared/codes";
+import { TController } from "@http/shared/types";
 
 const repo = new TodoImplementationRepository()
 
@@ -37,6 +37,9 @@ export const postTodo: TController<ITodoPromptPost> = async (_req, res) => {
   const todo = {
     title: res.locals.parsedData.title,
     description: res.locals.parsedData.description,
+    autorId: res.locals.authUserId,
+    memberId: res.locals.parsedData.memberId,
+    deadLine: res.locals.parsedData.deadLine,
   } as ITodoCreateDTO
 
   const [err, response] = await repo.createTodo(todo)
@@ -55,7 +58,10 @@ export const putTodo: TController<ITodoPromptPut> = async (req, res) => {
   const todo = {
     title: res.locals.parsedData.title,
     description: res.locals.parsedData.description,
-    isComplete: res.locals.parsedData.isComplete,
+    autorId: res.locals.authUserId,
+    status: res.locals.parsedData.status,
+    memberId: res.locals.parsedData.memberId,
+    deadLine: res.locals.parsedData.deadLine,
   } as ITodoUpdateDTO
 
   const [err, response] = await repo.updateTodo(req.params.id, todo)
@@ -74,7 +80,10 @@ export const patchTodo: TController<ITodoPromptPartial> = async (req, res) => {
   const todo = {
     title: res.locals.parsedData.title,
     description: res.locals.parsedData.description,
-    isComplete: res.locals.parsedData.isComplete,
+    autorId: res.locals.authUserId,
+    status: res.locals.parsedData.status,
+    memberId: res.locals.parsedData.memberId,
+    deadLine: res.locals.parsedData.deadLine,
   } as Partial<ITodoUpdateDTO>
 
   const [err, response] = await repo.partialUpdateTodo(req.params.id, todo)

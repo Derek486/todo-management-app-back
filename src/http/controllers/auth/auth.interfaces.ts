@@ -7,3 +7,7 @@ export interface IAuthPromptlogin {
 export interface IAuthPromptRegister {
   locals: { parsedData: IRegisterBody }
 }
+
+export interface IAuthLocalsToken {
+  authUserId: string
+}
